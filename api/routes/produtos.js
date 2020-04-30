@@ -65,6 +65,7 @@ router.delete('/:produtoId', (req, res, next) => {
 });
 
 router.put('/:produtoId', (req, res, next) => {
+    console.log(`REQUEST2 >>> ${JSON.stringify(req.body)}`)
     const id = req.params.produtoId;
     Produto.updateOne({ _id: id }, req.body)
         .exec()
