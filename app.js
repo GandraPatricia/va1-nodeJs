@@ -1,9 +1,16 @@
+const dotenv = require('dotenv');
 const express = require('express');
 const morgan = require('morgan');
 const app = express();
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
+ const dotenv =require('dotenv');
+ const jwt = require ('jsonwebtoken');
+
+
 const produtoRoutes = require('./api/routes/produtos');
+
+
 
 mongoose.connect('mongodb+srv://patricia:analista1@unidesc-pw-patricia-b7ext.mongodb.net/test?retryWrites=true&w=majority', {
     useNewUrlParser: true,
@@ -33,6 +40,14 @@ app.use((req, res, next) => {
 
 
 app.use('/produtos', produtoRoutes);
+app.use('/usuarios', usuariosRoutes);
+
+/*app.use('/jwt',(req, res)=>{
+    let privatekey = process.env.PRIVATE_KEY;
+    let token = jwt.sign({"body":"unidesc"},privatekey, {algorithm:'HS256'});
+    res.send(token);
+});*/
+
 app.use((req, res, next) => {
     const error = Error('not found');
     error.status = 404;
